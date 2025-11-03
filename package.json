@@ -56,7 +56,7 @@
     "LICENSE",
     "README.md"
   ],
-  "homepage": "https://github.com/rccyx/ts-roids",
+  "homepage": "https://rccyx.com",
   "keywords": [
     "typescript",
     "utility",
@@ -88,3 +88,4 @@
   "types": "./dist/index.d.ts",
   "version": "2.8.0"
 }
+

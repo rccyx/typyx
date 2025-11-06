@@ -6,7 +6,7 @@ Bullet proof TypeScript even more.
 
 [![CI](https://github.com/rccyx/typyx/actions/workflows/ci.yml/badge.svg)](https://github.com/rccyx/typyx/actions/workflows/ci.yml)
 [![@latest](https://img.shields.io/npm/v/typyx.svg)](https://www.npmjs.com/package/typyx)
-[![npm downloads](https://img.shields.io/npm/dm/ts-utils.svg)](https://www.npmjs.com/package/typyx)
+[![npm downloads](https://img.shields.io/npm/dm/ts-roids.svg)](https://www.npmjs.com/package/typyx)
 <hr/>
 </div>
 

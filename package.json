@@ -64,7 +64,7 @@
     "decorators",
     "type-safety"
   ],
-  "license": "GPL-3.0-only",
+  "license": "MIT",
   "name": "typyx",
   "packageManager": "pnpm@8.14.0",
   "private": false,

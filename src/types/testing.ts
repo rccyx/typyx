@@ -17,7 +17,7 @@ You can use it however you want, maybe to test a type on the go, or,
 test using a testing framework. Here's an example with [`vitest`](https://vitest.dev)
 
 ````ts
-import type { Abs, TestType } from 'ts-roids';
+import type { Abs, TestType } from 'typyx';
 import { test, expect , expectTypeOf} from 'vitest';
 
 test('|-54| should be 54',() => {

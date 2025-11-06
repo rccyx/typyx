@@ -4,7 +4,7 @@
     "name": "rccyx"
   },
   "bugs": {
-    "url": "https://github.com/rccyx/ts-roids/issues"
+    "url": "https://github.com/rccyx/typyx/issues"
   },
   "description": "Bullet-proof TS even more",
   "devDependencies": {
@@ -65,12 +65,12 @@
     "type-safety"
   ],
   "license": "GPL-3.0-only",
-  "name": "ts-roids",
+  "name": "typyx",
   "packageManager": "pnpm@8.14.0",
   "private": false,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rccyx/ts-roids.git"
+    "url": "git+https://github.com/rccyx/typyx.git"
   },
   "scripts": {
     "build": "pnpm run build:node",

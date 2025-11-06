@@ -22,4 +22,9 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          npm unpublish typyx --force
+          echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > ~/.npmrc
+          #!/bin/bash
+          if ! pnpm can-npm-publish; then
+            exit 0
+          fi
+          pnpm publish --no-git-checks --access public

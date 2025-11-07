@@ -1,6 +1,6 @@
 export type { UnionToIntersection } from './intersection';
 
-export type { UnionToTuple } from './to';
+export type { UnionToTuple, TupleToUnion } from './to';
 
 export type { ExclusiveUnion } from './exclusive';
 

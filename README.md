@@ -161,7 +161,8 @@ The best way to understand how these types work is to check the [tests directory
 
 See [releases](https://github.com/rccyx/typyx/releases).
 
+
 ## License
 
-[GPL-3](/LICENSE)
+MIT © [@rccyx](https://rccyx.com)
 

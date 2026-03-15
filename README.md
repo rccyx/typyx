@@ -27,8 +27,6 @@ Check out the full [API reference](https://typyx.rccyx.com/) for detailed usage 
 
 ## Types
 
-Grouped by what they actually do, not random alphabet soup.
-
 ### Object shape, keys, and modifiers
 
 * [`Assign<Obj, ObjArr>`](https://typyx.rccyx.com/types/Assign.html) - Copies all enumerable own properties from one target object to a source array of objects.

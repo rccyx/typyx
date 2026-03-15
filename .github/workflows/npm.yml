@@ -5,8 +5,7 @@ on:
   workflow_call:
 
 permissions:
-  contents: read
-  id-token: write # NPM releases
+  id-token: write
 
 jobs:
   publish:

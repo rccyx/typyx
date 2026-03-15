@@ -4,8 +4,11 @@ default_bump = "patch"
 bump_commit_message = "bump to {{version}}"
 post_bump_command = ""
 bump_tag_message    = "release {{version}}"
+changelog_header    = "# Changelog"
 
 [changelog]
 enable = false
 path   = "CHANGELOG.md"
 
+[context]
+enable = true

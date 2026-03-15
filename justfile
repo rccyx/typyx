@@ -15,3 +15,5 @@ alias f:= format
 
 @format:
     pnpm format
+@tt:
+    pnpm lint:ts

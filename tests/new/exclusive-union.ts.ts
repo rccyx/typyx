@@ -1,5 +1,5 @@
 import type { ExclusiveUnion } from '../../src/types';
-import { check, is, describe, it } from 'testyx';
+import { expect, is, describe, it } from 'testyx';
 
 describe('ExclusiveUnion (strict)', () => {
   it('should make non-present properties never', () => {
@@ -38,7 +38,7 @@ describe('ExclusiveUnion (strict)', () => {
           secretAccessKey: string;
         };
 
-    check(
+    expect(
       is<Config, Expected>().describe(
         'ensures other properties are typed as never'
       )
@@ -54,7 +54,7 @@ describe('ExclusiveUnion (strict)', () => {
       | { type: 'circle'; radius: number; side?: never }
       | { type: 'square'; side: number; radius?: never };
 
-    check(
+    expect(
       is<Shape, Expected>().describe(
         'enforces one discriminated branch active at a time'
       )
@@ -76,7 +76,7 @@ describe('ExclusiveUnion (strict)', () => {
           value: string;
         };
 
-    check(
+    expect(
       is<SinglePropUnion, Expected>().describe(
         'preserves simple discriminated unions without optional never noise'
       )
@@ -111,7 +111,7 @@ describe('ExclusiveUnion (strict)', () => {
           };
         };
 
-    check(
+    expect(
       is<NestedUnion, Expected>().describe(
         'handles nested shapes while maintaining exclusivity'
       )
@@ -142,7 +142,7 @@ describe('ExclusiveUnion (strict)', () => {
           payload?: never;
         };
 
-    check(
+    expect(
       is<Variant, Expected>().describe(
         'ensures unused discriminators are explicitly never'
       )

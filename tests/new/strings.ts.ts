@@ -1,4 +1,4 @@
-import { check, is, describe, it } from 'testyx';
+import { expect, is, describe, it } from 'testyx';
 import type {
   Strlen,
   StrMin,
@@ -9,7 +9,7 @@ import type {
 
 describe('string length meta-types', () => {
   it('Strlen works', () => {
-    check(
+    expect(
       is<Strlen<''>, 0>()
         .and()
         .is<Strlen<'a'>, 1>()
@@ -21,7 +21,7 @@ describe('string length meta-types', () => {
   });
 
   it('EqualStrlen works', () => {
-    check(
+    expect(
       is<EqualStrlen<'foo', 'bar'>, true>()
         .and()
         .is<EqualStrlen<'foo', 'four'>, false>()
@@ -29,17 +29,17 @@ describe('string length meta-types', () => {
   });
 
   it('StrMax works', () => {
-    check(
+    expect(
       is<StrMax<'abc', 3>, 'abc'>().and().isNot<StrMax<'abcd', 3>, 'abcd'>()
     );
   });
 
   it('StrMin works', () => {
-    check(is<StrMin<'abc', 2>, 'abc'>().and().isNot<StrMin<'a', 2>, 'a'>());
+    expect(is<StrMin<'abc', 2>, 'abc'>().and().isNot<StrMin<'a', 2>, 'a'>());
   });
 
   it('StrBetween works', () => {
-    check(
+    expect(
       is<StrBetween<'abcd', 2, 5>, 'abcd'>()
         .and()
         .isNot<StrBetween<'a', 2, 5>, 'a'>()

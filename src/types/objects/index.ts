@@ -48,3 +48,5 @@ export type {
   NotIncluded,
   OmitExactlyByTypeDeep,
 } from './filtering';
+
+export type { MakeOptional, MakeRequired } from './modifers';

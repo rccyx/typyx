@@ -1,9 +1,9 @@
-import { check, is, describe, it } from 'testyx';
+import { expect, is, describe, it } from 'testyx';
 import type { NotAssignableTo } from '../../src';
 
 describe('NotAssignableTo', () => {
   it('filters out members assignable to the second type', () => {
-    check(
+    expect(
       is<NotAssignableTo<string | number, string>, number>()
         .and()
         .is<NotAssignableTo<'a' | 'b' | 1, string>, 1>()
@@ -15,7 +15,7 @@ describe('NotAssignableTo', () => {
   });
 
   it('handles object and null cases correctly', () => {
-    check(
+    expect(
       is<
         NotAssignableTo<{ a: 1 } | null | undefined, null | undefined>,
         { a: 1 }
@@ -29,7 +29,7 @@ describe('NotAssignableTo', () => {
   });
 
   it('yields never when everything is assignable', () => {
-    check(
+    expect(
       is<NotAssignableTo<string, string>, never>()
         .and()
         .is<NotAssignableTo<42, number>, never>()
@@ -39,7 +39,7 @@ describe('NotAssignableTo', () => {
   });
 
   it('preserves the input when nothing is assignable', () => {
-    check(
+    expect(
       is<NotAssignableTo<string, number>, string>()
         .and()
         .is<NotAssignableTo<{ a: 1 }, { b: 2 }>, { a: 1 }>()

@@ -1,9 +1,9 @@
 import { LastElement } from '@/types';
-import { check, describe, is, it } from 'testyx';
+import { expect, describe, is, it } from 'testyx';
 
 describe('LastElement', () => {
   it('', () => {
-    check(
+    expect(
       is<LastElement<[1, 2, 3]>, 3>()
         .describe('should return the last element of an array')
         .and()

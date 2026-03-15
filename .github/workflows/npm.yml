@@ -6,6 +6,7 @@ on:
 
 permissions:
   id-token: write
+  contents: read
 
 jobs:
   publish:
@@ -18,6 +19,11 @@ jobs:
           persist-credentials: false
 
       - uses: ./.github/actions/prepare
+      - name: Versions
+        run: |
+          node -v
+          npm -v
+          pnpm -v
 
       - name: Build
         run: pnpm run build

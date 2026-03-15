@@ -5,7 +5,7 @@ inputs:
   node-version:
     required: false
     description: '`node-version` passed to `actions/setup-node`.'
-    default: 18.17.0
+    default: '24'
 
 runs:
   using: 'composite'
@@ -15,10 +15,14 @@ runs:
         git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
         git config --global user.name ${GITHUB_ACTOR}
       shell: bash
+
     - uses: pnpm/action-setup@v2
+
     - uses: actions/setup-node@v4
       with:
         node-version: ${{ inputs.node-version }}
         cache: 'pnpm'
+        registry-url: 'https://registry.npmjs.org'
+
     - run: pnpm install
       shell: bash

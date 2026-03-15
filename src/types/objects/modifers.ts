@@ -1,18 +1,5 @@
-import { EmptyObject } from '../primitives';
 import { Simplify } from '../utils';
-import type { Keys } from './keys';
-
-/**
- * @hidden
- */
-type _OptionalKeys<T extends object> = {
-  [K in Keys<T>]-?: EmptyObject extends Pick<T, K> ? K : never;
-}[Keys<T>];
-
-/**
- * @hidden
- */
-type _RequiredKeys<T extends object> = Exclude<Keys<T>, _OptionalKeys<T>>;
+import type { Keys, NonRequiredKeys, RequiredKeys } from './keys';
 
 /**
  * Constructs a new type from `T` where the specified keys `K` become optional,
@@ -60,8 +47,8 @@ type _RequiredKeys<T extends object> = Exclude<Keys<T>, _OptionalKeys<T>>;
  * ```
  */
 export type MakeOptional<T extends object, K extends Keys<T>> = Simplify<
-  Pick<T, Exclude<_RequiredKeys<T>, K>> &
-    Partial<Pick<T, Extract<Keys<T>, _OptionalKeys<T> | K>>>
+  Pick<T, Exclude<RequiredKeys<T>, K>> &
+    Partial<Pick<T, Extract<Keys<T>, NonRequiredKeys<T> | K>>>
 >;
 
 /**
@@ -110,6 +97,6 @@ export type MakeOptional<T extends object, K extends Keys<T>> = Simplify<
  * ```
  */
 export type MakeRequired<T extends object, K extends Keys<T>> = Simplify<
-  Required<Pick<T, Extract<Keys<T>, _RequiredKeys<T> | K>>> &
-    Partial<Pick<T, Exclude<_OptionalKeys<T>, K>>>
+  Required<Pick<T, Extract<Keys<T>, RequiredKeys<T> | K>>> &
+    Partial<Pick<T, Exclude<NonRequiredKeys<T>, K>>>
 >;

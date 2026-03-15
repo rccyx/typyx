@@ -1,47 +1,53 @@
-import type { Keys } from '../objects/keys';
 import type { Simplify } from '../utils';
 
-type KeysOfUnion<T> = T extends T ? keyof T : never;
+/**
+ * @hidden
+ */
+type _KeysOfUnion<T> = T extends T ? keyof T : never;
 
 /**
- * `ExclusiveUnion<T>` creates a union type where each member has its own properties as required,
- * while properties from other members of the union are made optional and set to `undefined`.
- * This is useful for cases where different configurations or variants in a union require only their specific fields.
+ * @hidden
+ */
+type _ExclusiveUnionMember<
+  T extends object,
+  AllKeys extends PropertyKey,
+> = Simplify<T & Partial<Record<Exclude<AllKeys, keyof T>, never>>>;
+
+/**
+ * Constructs a strict exclusive union from a union of object types.
  *
- * @template T - The union of object types for which partially optionalized variants should be created.
- * @template AllKeys - The union of all possible keys across the union's types, derived from `KeysOfUnion`.
+ * Each member keeps its own properties unchanged, while properties that belong
+ * to other union members are added as optional `never` fields.
+ *
+ * This makes the union mutually exclusive at the type level and is especially
+ * useful for configuration objects, variant props, and discriminated unions.
+ *
+ * @template T The union of object types to make exclusive.
+ * @template AllKeys The full key set across all members of `T`.
  *
  * @example
  * ```ts
  * type Config = ExclusiveUnion<
  *   | { dbConnectionString: string; maxConnections: number }
  *   | { apiEndpoint: string; apiKey: string }
- *   | { storageBucket: string; accessKeyId: string; secretAccessKey: string }
  * >;
  *
- * // Example usage:
- * function configureService(config: Config) {
- *   if (config.dbConnectionString) {
- *     console.log(`Configuring database with connection string ${config.dbConnectionString}`);
- *   } else if (config.apiEndpoint) {
- *     console.log(`Configuring API with endpoint ${config.apiEndpoint}`);
- *   } else if (config.storageBucket && config.accessKeyId && config.secretAccessKey) {
- *     console.log(`Configuring storage bucket ${config.storageBucket}`);
- *   } else {
- *     console.log('Invalid configuration');
- *   }
- * }
- *
- * configureService({ dbConnectionString: 'postgres://...', maxConnections: 100 });
- * configureService({ apiEndpoint: 'https://api.example.com', apiKey: '1234' });
- * configureService({ storageBucket: 'my-bucket', accessKeyId: 'AKIA...', secretAccessKey: 'abcd' });
+ * // Result:
+ * // | {
+ * //     dbConnectionString: string;
+ * //     maxConnections: number;
+ * //     apiEndpoint?: never;
+ * //     apiKey?: never;
+ * //   }
+ * // | {
+ * //     dbConnectionString?: never;
+ * //     maxConnections?: never;
+ * //     apiEndpoint: string;
+ * //     apiKey: string;
+ * //   }
  * ```
  */
 export type ExclusiveUnion<
   T extends object,
-  AllKeys extends KeysOfUnion<T> = KeysOfUnion<T>,
-> = Simplify<
-  T extends unknown
-    ? T & Partial<Record<Exclude<AllKeys, Keys<T>>, undefined>>
-    : never
->;
+  AllKeys extends PropertyKey = _KeysOfUnion<T>,
+> = T extends unknown ? _ExclusiveUnionMember<T, AllKeys> : never;

@@ -1,5 +1,5 @@
 import { Simplify } from '../utils';
-import type { Keys, NonRequiredKeys, RequiredKeys } from './keys';
+import type { NonRequiredKeys, RequiredKeys } from './keys';
 
 /**
  * Constructs a new type from `T` where the specified keys `K` become optional,
@@ -46,9 +46,9 @@ import type { Keys, NonRequiredKeys, RequiredKeys } from './keys';
  * // }
  * ```
  */
-export type MakeOptional<T extends object, K extends Keys<T>> = Simplify<
+export type MakeOptional<T extends object, K extends keyof T> = Simplify<
   Pick<T, Exclude<RequiredKeys<T>, K>> &
-    Partial<Pick<T, Extract<Keys<T>, NonRequiredKeys<T> | K>>>
+    Partial<Pick<T, NonRequiredKeys<T> | K>>
 >;
 
 /**
@@ -96,7 +96,7 @@ export type MakeOptional<T extends object, K extends Keys<T>> = Simplify<
  * // }
  * ```
  */
-export type MakeRequired<T extends object, K extends Keys<T>> = Simplify<
-  Required<Pick<T, Extract<Keys<T>, RequiredKeys<T> | K>>> &
+export type MakeRequired<T extends object, K extends keyof T> = Simplify<
+  Required<Pick<T, RequiredKeys<T> | K>> &
     Partial<Pick<T, Exclude<NonRequiredKeys<T>, K>>>
 >;

@@ -1,14 +1,13 @@
-name: Test
+name: Lint Code
 
 on:
-  pull_request:
   workflow_dispatch:
   workflow_call:
 
 jobs:
-  run:
+  check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/prepare
-      - run: pnpm run test
+      - run: pnpm run lint

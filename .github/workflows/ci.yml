@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-
   pull_request:
     types:
       - opened
@@ -25,16 +24,16 @@ concurrency:
 jobs:
   validate-pr:
     if: github.event_name == 'pull_request'
-    uses: ./.github/workflows/validate-pr-title.yml
+    uses: ./.github/workflows/on-workflow-call-validate-pr-title.yml
     secrets: inherit
   format:
-    uses: ./.github/workflows/check-formatting.yml
+    uses: ./.github/workflows/on-workflow-call-format.yml
   lint:
-    uses: ./.github/workflows/lint.yml
+    uses: ./.github/workflows/on-workflow-call-lint.yml
   dependencies:
-    uses: ./.github/workflows/check-dependencies.yml
+    uses: ./.github/workflows/on-workflow-call-deps.yml
   test:
-    uses: ./.github/workflows/test.yml
+    uses: ./.github/workflows/on-workflow-call-test.yml
 
   mergeable:
     if: always()
@@ -59,5 +58,5 @@ jobs:
   npm:
     if: github.ref == 'refs/heads/main'
     needs: [mergeable]
-    uses: ./.github/workflows/npm.yml
+    uses: ./.github/workflows/on-workflow-call-release.yml
     secrets: inherit

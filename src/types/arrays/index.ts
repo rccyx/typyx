@@ -9,3 +9,5 @@ export type { IsArrayIncludesTypeof } from './includes';
 
 // Array last types
 export type { Last, Append, Head, Pop, Prepend, Tail } from './positions';
+
+export type { Zip } from './zip';

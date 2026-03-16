@@ -84,6 +84,7 @@ Check out the full [API reference](https://typyx.rccyx.com/) for detailed usage 
 * [`SizedTuple<T, N>`](https://typyx.rccyx.com/types/SizedTuple.html) - Creates a tuple of length `N` where each element is of type `T`.
 * [`Tail<Arr>`](https://typyx.rccyx.com/types/Tail.html) - Removes the first element of a tuple.
 * [`UniqueArray<T>`](https://typyx.rccyx.com/types/UniqueArray.html) - Creates a unique array type from an array type `T`.
+* [`Zip<L, L1>`](https://typyx.rccyx.com/types/Zip.html) - Pairs elements from two tuples by index into a tuple of pairs.
 
 ### String utilities
 

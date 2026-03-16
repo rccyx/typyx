@@ -52,7 +52,7 @@ jobs:
   docs:
     if: github.ref == 'refs/heads/main'
     needs: [mergeable]
-    uses: ./.github/workflows/docs.yml
+    uses: ./.github/workflows/on-workflow-call-docs.yml
     secrets: inherit
 
   npm:

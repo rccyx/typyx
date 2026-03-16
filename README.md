@@ -11,10 +11,9 @@ Bullet-proof TypeScript even more.
 **npm**
 ```bash
 npm i -D typyx
-````
+```
 
 **pnpm**
-
 ```bash
 pnpm i -D typyx
 ```
@@ -74,11 +73,16 @@ Check out the full [API reference](https://typyx.rccyx.com/) for detailed usage 
 
 ### Array and tuple utilities
 
+* [`Append<Arr, Item>`](https://typyx.rccyx.com/types/Append.html) - Adds an item to the end of a tuple.
 * [`EitherOneOrMany<T>`](https://typyx.rccyx.com/types/EitherOneOrMany.html) - Represents either a single value of type `T` or an array of `T`.
+* [`Head<Arr>`](https://typyx.rccyx.com/types/Head.html) - Gets the first element of a tuple.
 * [`IsArrayIncludesTypeof<Arr, T>`](https://typyx.rccyx.com/types/IsArrayIncludesTypeof.html) - Checks whether an array type `Arr` includes one or more members assignable to `T`.
-* [`LastElement<Arr, T>`](https://typyx.rccyx.com/types/LastElement.html) - Gets the last element of an array or tuple type.
+* [`Last<Arr>`](https://typyx.rccyx.com/types/Last.html) - Gets the last element of a tuple.
 * [`NonEmptyArray<T>`](https://typyx.rccyx.com/types/NonEmptyArray.html) - Represents an array containing at least one element of type `T`.
+* [`Pop<Arr>`](https://typyx.rccyx.com/types/Pop.html) - Removes the last element of a tuple.
+* [`Prepend<Arr, Item>`](https://typyx.rccyx.com/types/Prepend.html) - Adds an item to the start of a tuple.
 * [`SizedTuple<T, N>`](https://typyx.rccyx.com/types/SizedTuple.html) - Creates a tuple of length `N` where each element is of type `T`.
+* [`Tail<Arr>`](https://typyx.rccyx.com/types/Tail.html) - Removes the first element of a tuple.
 * [`UniqueArray<T>`](https://typyx.rccyx.com/types/UniqueArray.html) - Creates a unique array type from an array type `T`.
 
 ### String utilities
@@ -177,7 +181,7 @@ Check out the full [API reference](https://typyx.rccyx.com/) for detailed usage 
 * [`Primitive`](https://typyx.rccyx.com/types/Primitive.html) - Represents all JavaScript primitive types.
 * [`Simplify<T>`](https://typyx.rccyx.com/types/Simplify.html) - Flattens and normalizes a type for better readability.
 
-The best way to understand how these types work is to check the [tests directory](/tests/). 
+The best way to understand how these types work is to check the [tests directory](/tests/).
 
 ## Changelog
 

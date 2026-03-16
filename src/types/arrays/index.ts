@@ -8,4 +8,4 @@ export type { UniqueArray } from './uniqueness';
 export type { IsArrayIncludesTypeof } from './includes';
 
 // Array last types
-export type { LastElement } from './last';
+export type { Last, Append, Head, Pop, Prepend, Tail } from './positions';

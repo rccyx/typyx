@@ -2,7 +2,7 @@
 
 # typyx
 
-Bullet-proof TypeScript even more.
+Bullet-proof TypeScript, even more.
 
 </div>
 
@@ -14,6 +14,7 @@ npm i -D typyx
 ```
 
 **pnpm**
+
 ```bash
 pnpm i -D typyx
 ```
@@ -34,19 +35,21 @@ Check out the full [API reference](https://typyx.rccyx.com/) for detailed usage 
 * [`ImmutableKeys<Obj>`](https://typyx.rccyx.com/types/ImmutableKeys.html) - Retrieves the `readonly` keys from an object type `Obj`.
 * [`Keys<T>`](https://typyx.rccyx.com/types/Keys.html) - Retrieves the union of keys of a type `T`.
 * [`KeysOfUnion<T>`](https://typyx.rccyx.com/types/KeysOfUnion.html) - Extracts the union of keys from a union of object types.
+* [`KeysToValues<Obj>`](https://typyx.rccyx.com/types/KeysToValues.html) - Creates a reverse mapping from values to keys for a simple object type.
 * [`MakeOptional<T, K>`](https://typyx.rccyx.com/types/MakeOptional.html) - Makes the specified keys `K` optional while preserving the original modifiers of all other keys.
 * [`MakeRequired<T, K>`](https://typyx.rccyx.com/types/MakeRequired.html) - Makes the specified keys `K` required while preserving the original modifiers of all other keys.
 * [`Methods<Obj>`](https://typyx.rccyx.com/types/Methods.html) - Gets the literal names of keys that are methods in an object type `Obj`.
 * [`MutableKeys<Obj>`](https://typyx.rccyx.com/types/MutableKeys.html) - Retrieves the mutable keys from an object type `Obj`.
 * [`NonRequiredKeys<Obj>`](https://typyx.rccyx.com/types/NonRequiredKeys.html) - Returns all non-required keys of an object type `Obj`.
+* [`NotIncluded`](https://typyx.rccyx.com/types/NotIncluded.html) - Marker type used with deep pruning utilities to completely omit fields.
 * [`OmitByType<Obj, T>`](https://typyx.rccyx.com/types/OmitByType.html) - Omits properties from `Obj` whose types are assignable to `T`.
 * [`OmitCommonKeys<Obj1, Obj2>`](https://typyx.rccyx.com/types/OmitCommonKeys.html) - Omits any keys shared by `Obj1` and `Obj2`.
-* [`OmitExactlyByType<Obj, T>`](https://typyx.rccyx.com/types/OmitExactlyByType.html) - Omits properties from `Obj` whose types exactly match `T`.
-* [`PartialExcept<T, P>`](https://typyx.rccyx.com/types/PartialExcept.html) - Makes all properties in `T` optional except those in `P`, which remain required.
+* [`OmitExactlyByTypeDeep<Obj, T>`](https://typyx.rccyx.com/types/OmitExactlyByTypeDeep.html) - Deeply omits properties whose types exactly match `T`.
 * [`PickByType<Obj, T>`](https://typyx.rccyx.com/types/PickByType.html) - Picks properties from `Obj` whose types are assignable to `T`.
 * [`PickCommonKeys<Obj1, Obj2>`](https://typyx.rccyx.com/types/PickCommonKeys.html) - Gets the common keys between two object types.
 * [`PickExactlyByType<Obj, T>`](https://typyx.rccyx.com/types/PickExactlyByType.html) - Picks properties from `Obj` whose types exactly match `T`.
 * [`Properties<Obj>`](https://typyx.rccyx.com/types/Properties.html) - Gets the literal names of keys that are non-method properties in an object type `Obj`.
+* [`Prune<T, N = NotIncluded>`](https://typyx.rccyx.com/types/Prune.html) - Recursively omits properties of type `N` from `T`.
 * [`ReplaceKeys<Obj1, P, Obj2>`](https://typyx.rccyx.com/types/ReplaceKeys.html) - Replaces properties `P` in `Obj1` with the corresponding properties from `Obj2`.
 * [`RequiredKeys<Obj>`](https://typyx.rccyx.com/types/RequiredKeys.html) - Gets the required keys of an object type `Obj`.
 * [`Vals<Obj>`](https://typyx.rccyx.com/types/Vals.html) - Gets the union of value types from an object type.
@@ -57,17 +60,22 @@ Check out the full [API reference](https://typyx.rccyx.com/) for detailed usage 
 * [`DeepImmutable<Obj>`](https://typyx.rccyx.com/types/DeepImmutable.html) - Recursively makes every property in `Obj` `readonly`.
 * [`DeepMutable<Obj>`](https://typyx.rccyx.com/types/DeepMutable.html) - Recursively removes `readonly` from every property in `Obj`.
 * [`DeepNotRequired<Obj>`](https://typyx.rccyx.com/types/DeepNotRequired.html) - Recursively makes all properties optional.
-* [`DeepOmit<Obj, P>`](https://typyx.rccyx.com/types/DeepOmit.html) - Recursively omits specified nested properties from an object based on predicate `P`.
-* [`DeepPick<Obj, P>`](https://typyx.rccyx.com/types/DeepPick.html) - Deeply picks properties from a nested object based on predicate `P`.
+* [`DeepOmit<Obj, P>`](https://typyx.rccyx.com/types/DeepOmit.html) - Recursively omits specified nested properties from an object based on path `P`.
+* [`DeepPick<Obj, P>`](https://typyx.rccyx.com/types/DeepPick.html) - Deeply picks properties from a nested object based on path `P`.
 * [`DeepRequired<Obj>`](https://typyx.rccyx.com/types/DeepRequired.html) - Recursively makes all properties required.
 * [`DeepToPrimitive<Obj>`](https://typyx.rccyx.com/types/DeepToPrimitive.html) - Recursively transforms an object type into one whose properties are their primitive counterparts.
+* [`IsDeepImmutable<Obj>`](https://typyx.rccyx.com/types/IsDeepImmutable.html) - Checks if all nested properties of `Obj` are immutable.
+* [`IsDeepMutable<Obj>`](https://typyx.rccyx.com/types/IsDeepMutable.html) - Checks if all nested properties of `Obj` are mutable.
+* [`IsDeepNotRequired<Obj>`](https://typyx.rccyx.com/types/IsDeepNotRequired.html) - Checks if all nested properties of `Obj` are optional.
+* [`IsDeepRequired<Obj>`](https://typyx.rccyx.com/types/IsDeepRequired.html) - Checks if all nested properties of `Obj` are required.
 * [`Paths<Obj>`](https://typyx.rccyx.com/types/Paths.html) - Generates all possible dot-separated key paths from a nested object type.
-* [`Prune<T, N = NotIncluded>`](https://typyx.rccyx.com/types/Prune.html) - Recursively omits properties of type `N` from `T`.
 
 ### Union and composition utilities
 
 * [`ExclusiveUnion<T>`](https://typyx.rccyx.com/types/ExclusiveUnion.html) - Creates a union type where each variant keeps its own required properties while excluding incompatible ones.
+* [`KeysOfUnion<T>`](https://typyx.rccyx.com/types/KeysOfUnion.html) - Extracts the full key union across a union of object types.
 * [`NotAssignableTo<U, V>`](https://typyx.rccyx.com/types/NotAssignableTo.html) - Excludes all members of `U` that are assignable to `V`.
+* [`TupleToUnion<T>`](https://typyx.rccyx.com/types/TupleToUnion.html) - Converts a tuple type into a union type.
 * [`UnionToIntersection<U>`](https://typyx.rccyx.com/types/UnionToIntersection.html) - Converts a union type into an intersection type.
 * [`UnionToTuple<T>`](https://typyx.rccyx.com/types/UnionToTuple.html) - Converts a union type into a tuple type.
 
@@ -76,13 +84,14 @@ Check out the full [API reference](https://typyx.rccyx.com/) for detailed usage 
 * [`Append<Arr, Item>`](https://typyx.rccyx.com/types/Append.html) - Adds an item to the end of a tuple.
 * [`EitherOneOrMany<T>`](https://typyx.rccyx.com/types/EitherOneOrMany.html) - Represents either a single value of type `T` or an array of `T`.
 * [`Head<Arr>`](https://typyx.rccyx.com/types/Head.html) - Gets the first element of a tuple.
-* [`IsArrayIncludesTypeof<Arr, T>`](https://typyx.rccyx.com/types/IsArrayIncludesTypeof.html) - Checks whether an array type `Arr` includes one or more members assignable to `T`.
+* [`IsArrayIncludesTypeof<Arr, T>`](https://typyx.rccyx.com/types/IsArrayIncludesTypeof.html) - Checks whether an array type `Arr` is assignable to `T[]`.
 * [`Last<Arr>`](https://typyx.rccyx.com/types/Last.html) - Gets the last element of a tuple.
 * [`NonEmptyArray<T>`](https://typyx.rccyx.com/types/NonEmptyArray.html) - Represents an array containing at least one element of type `T`.
 * [`Pop<Arr>`](https://typyx.rccyx.com/types/Pop.html) - Removes the last element of a tuple.
 * [`Prepend<Arr, Item>`](https://typyx.rccyx.com/types/Prepend.html) - Adds an item to the start of a tuple.
 * [`SizedTuple<T, N>`](https://typyx.rccyx.com/types/SizedTuple.html) - Creates a tuple of length `N` where each element is of type `T`.
 * [`Tail<Arr>`](https://typyx.rccyx.com/types/Tail.html) - Removes the first element of a tuple.
+* [`Tuple<T>`](https://typyx.rccyx.com/types/Tuple.html) - Narrows `T` to a tuple type and rejects regular arrays.
 * [`UniqueArray<T>`](https://typyx.rccyx.com/types/UniqueArray.html) - Creates a unique array type from an array type `T`.
 * [`Zip<L, L1>`](https://typyx.rccyx.com/types/Zip.html) - Pairs elements from two tuples by index into a tuple of pairs.
 
@@ -91,7 +100,7 @@ Check out the full [API reference](https://typyx.rccyx.com/) for detailed usage 
 * [`CapitalizeFirst<T>`](https://typyx.rccyx.com/types/CapitalizeFirst.html) - Capitalizes the first character of a string literal type.
 * [`EnforcedString<Prefix, Contains, Suffix>`](https://typyx.rccyx.com/types/EnforcedString.html) - Restricts a string using optional prefix, substring, and suffix constraints.
 * [`EqualStrlen<S1, S2>`](https://typyx.rccyx.com/types/EqualStrlen.html) - Checks whether two strings have the same length.
-* [`FilledString<Obj>`](https://typyx.rccyx.com/types/FilledString.html) - Errors on an empty string literal `''`.
+* [`FilledString<S>`](https://typyx.rccyx.com/types/FilledString.html) - Errors on an empty string literal `''`.
 * [`NumerifyString<S>`](https://typyx.rccyx.com/types/NumerifyString.html) - Converts a string literal into a [`Numeric`](https://typyx.rccyx.com/types/Numeric.html) when possible.
 * [`StringEndsWith<S, E>`](https://typyx.rccyx.com/types/StringEndsWith.html) - Checks whether a string `S` ends with `E`.
 * [`StringStartsWith<S, St>`](https://typyx.rccyx.com/types/StringStartsWith.html) - Checks whether a string `S` starts with `St`.
@@ -104,15 +113,23 @@ Check out the full [API reference](https://typyx.rccyx.com/) for detailed usage 
 ### Numeric utilities
 
 * [`Abs<N>`](https://typyx.rccyx.com/types/Abs.html) - Gets the absolute value of a [`Numeric`](https://typyx.rccyx.com/types/Numeric.html).
-* [`EvenNumeric<T>`](https://typyx.rccyx.com/types/EvenNumeric.html) - Represents an even [`Numeric`](https://typyx.rccyx.com/types/Numeric.html).
+* [`Even<T>`](https://typyx.rccyx.com/types/Even.html) - Represents an even [`Numeric`](https://typyx.rccyx.com/types/Numeric.html).
 * [`Float<N>`](https://typyx.rccyx.com/types/Float.html) - Type representing a float.
 * [`Integer<N>`](https://typyx.rccyx.com/types/Integer.html) - Represents an integer.
+* [`IsFloat<N>`](https://typyx.rccyx.com/types/IsFloat.html) - Checks if a given numeric type is a float.
+* [`IsInteger<N>`](https://typyx.rccyx.com/types/IsInteger.html) - Checks if a given numeric type is an integer.
+* [`IsNegative<N>`](https://typyx.rccyx.com/types/IsNegative.html) - Checks if a numeric type is negative.
+* [`IsNegativeFloat<N>`](https://typyx.rccyx.com/types/IsNegativeFloat.html) - Checks if a numeric type is a negative float.
+* [`IsNegativeInteger<N>`](https://typyx.rccyx.com/types/IsNegativeInteger.html) - Checks if a numeric type is a negative integer.
+* [`IsPositive<N>`](https://typyx.rccyx.com/types/IsPositive.html) - Checks if a numeric type is positive.
+* [`IsPositiveFloat<N>`](https://typyx.rccyx.com/types/IsPositiveFloat.html) - Checks if a numeric type is a positive float.
+* [`IsPositiveInteger<N>`](https://typyx.rccyx.com/types/IsPositiveInteger.html) - Checks if a numeric type is a positive integer.
 * [`NegativeFloat<N>`](https://typyx.rccyx.com/types/NegativeFloat.html) - Represents a negative [`Float<N>`](https://typyx.rccyx.com/types/Float.html).
 * [`NegativeFloatString<S>`](https://typyx.rccyx.com/types/NegativeFloatString.html) - Represents a negative float parsed from a string.
 * [`NegativeInteger<N>`](https://typyx.rccyx.com/types/NegativeInteger.html) - Represents a negative [`Integer<N>`](https://typyx.rccyx.com/types/Integer.html).
 * [`NegativeIntegerString<S>`](https://typyx.rccyx.com/types/NegativeIntegerString.html) - Represents a negative integer parsed from a string.
 * [`Numeric`](https://typyx.rccyx.com/types/Numeric.html) - Represents `number | bigint`.
-* [`OddNumeric<T>`](https://typyx.rccyx.com/types/OddNumeric.html) - Represents an odd [`Numeric`](https://typyx.rccyx.com/types/Numeric.html).
+* [`Odd<T>`](https://typyx.rccyx.com/types/Odd.html) - Represents an odd [`Numeric`](https://typyx.rccyx.com/types/Numeric.html).
 * [`PositiveFloat<N>`](https://typyx.rccyx.com/types/PositiveFloat.html) - Represents a positive [`Float<N>`](https://typyx.rccyx.com/types/Float.html).
 * [`PositiveFloatString<S>`](https://typyx.rccyx.com/types/PositiveFloatString.html) - Represents a positive float parsed from a string.
 * [`PositiveInteger<N>`](https://typyx.rccyx.com/types/PositiveInteger.html) - Represents a positive [`Integer<N>`](https://typyx.rccyx.com/types/Integer.html).
@@ -123,27 +140,26 @@ Check out the full [API reference](https://typyx.rccyx.com/) for detailed usage 
 
 * [`And<B1, B2>`](https://typyx.rccyx.com/types/And.html) - Logical `AND` between two boolean types.
 * [`Equals<X, Y>`](https://typyx.rccyx.com/types/Equals.html) - Checks if two types are exactly equal.
-* [`Extends<T, U>`](https://typyx.rccyx.com/types/Extends.html) - Evaluates whether type `T` is assignable to type `U`.
 * [`If<C, Do, Else>`](https://typyx.rccyx.com/types/If.html) - Resolves to `Do` if `C` is `true`, otherwise `Else`.
 * [`IfEquals<T, P, Do, Else>`](https://typyx.rccyx.com/types/IfEquals.html) - Resolves to `Do` if `T` equals `P`, otherwise `Else`.
 * [`IfExtends<T, P, Do, Else>`](https://typyx.rccyx.com/types/IfExtends.html) - Resolves to `Do` if `T` extends `P`, otherwise `Else`.
-* [`Is<T, U>`](https://typyx.rccyx.com/types/Is.html) - Checks if two types are exactly identical.
-* [`IsNot<T, U>`](https://typyx.rccyx.com/types/IsNot.html) - Checks if two types are not identical.
 * [`Nand<B1, B2>`](https://typyx.rccyx.com/types/Nand.html) - Logical `NAND` between two boolean types.
+* [`Nor<A, B>`](https://typyx.rccyx.com/types/Nor.html) - Logical `NOR` between two boolean types.
 * [`Not<B>`](https://typyx.rccyx.com/types/Not.html) - Negates a boolean type.
 * [`Or<B1, B2>`](https://typyx.rccyx.com/types/Or.html) - Logical `OR` between two boolean types.
-* [`Xnor<B1, B2>`](https://typyx.rccyx.com/types/Xnor.html) - Logical `XNOR` between two boolean types.
+* [`Xand<A, B>`](https://typyx.rccyx.com/types/Xand.html) - Logical `XAND` between two boolean types.
+* [`Xnor<A, B>`](https://typyx.rccyx.com/types/Xnor.html) - Logical `XNOR` between two boolean types.
 * [`Xor<B1, B2>`](https://typyx.rccyx.com/types/Xor.html) - Logical `XOR` between two boolean types.
 
 ### Type predicates and checkers
 
+* [`Extends<T, U>`](https://typyx.rccyx.com/types/Extends.html) - Evaluates whether type `T` is assignable to type `U`.
 * [`FalsyProperties<T>`](https://typyx.rccyx.com/types/FalsyProperties.html) - Extracts falsy properties from an object type `T`.
+* [`Is<T, U>`](https://typyx.rccyx.com/types/Is.html) - Checks if two types are exactly identical.
+* [`IsAnyFunction<T>`](https://typyx.rccyx.com/types/IsAnyFunction.html) - Checks if `T` is an arbitrary function type.
+* [`IsArray<T>`](https://typyx.rccyx.com/types/IsArray.html) - Checks if `T` is an array type.
 * [`IsBigInt<T>`](https://typyx.rccyx.com/types/IsBigInt.html) - Checks if `T` is a `bigint`.
 * [`IsBoolean<T>`](https://typyx.rccyx.com/types/IsBoolean.html) - Checks if `T` is a `boolean`.
-* [`IsDeepImmutable<Obj>`](https://typyx.rccyx.com/types/IsDeepImmutable.html) - Checks if all nested properties of `Obj` are immutable.
-* [`IsDeepMutable<Obj>`](https://typyx.rccyx.com/types/IsDeepMutable.html) - Checks if all nested properties of `Obj` are mutable.
-* [`IsDeepNotRequired<Obj>`](https://typyx.rccyx.com/types/IsDeepNotRequired.html) - Checks if all nested properties of `Obj` are optional.
-* [`IsDeepRequired<Obj>`](https://typyx.rccyx.com/types/IsDeepRequired.html) - Checks if all nested properties of `Obj` are required.
 * [`IsExactlyAny<T>`](https://typyx.rccyx.com/types/IsExactlyAny.html) - Checks if `T` is exactly `any`.
 * [`IsExactlyBigInt<T>`](https://typyx.rccyx.com/types/IsExactlyBigInt.html) - Checks if `T` is exactly `bigint`.
 * [`IsExactlyNumber<T>`](https://typyx.rccyx.com/types/IsExactlyNumber.html) - Checks if `T` is exactly `number`.
@@ -151,11 +167,10 @@ Check out the full [API reference](https://typyx.rccyx.com/) for detailed usage 
 * [`IsExactlySymbol<T>`](https://typyx.rccyx.com/types/IsExactlySymbol.html) - Checks if `T` is exactly `symbol`.
 * [`IsExactlyUnknown<T>`](https://typyx.rccyx.com/types/IsExactlyUnknown.html) - Checks if `T` is exactly `unknown`.
 * [`IsFalsy<T>`](https://typyx.rccyx.com/types/IsFalsy.html) - Checks if a given type `T` is [`Falsy`](https://typyx.rccyx.com/types/Falsy.html).
-* [`IsFloat<N>`](https://typyx.rccyx.com/types/IsFloat.html) - Checks if a given type is a [`Float<N>`](https://typyx.rccyx.com/types/Float.html).
 * [`IsFunction<T>`](https://typyx.rccyx.com/types/IsFunction.html) - Checks if a given type `T` is a function.
-* [`IsInteger<N>`](https://typyx.rccyx.com/types/IsInteger.html) - Checks if a given numeric type is an [`Integer<N>`](https://typyx.rccyx.com/types/Integer.html).
 * [`IsNever<T>`](https://typyx.rccyx.com/types/IsNever.html) - Checks if a type resolves to `never`.
 * [`IsNewable<T>`](https://typyx.rccyx.com/types/IsNewable.html) - Checks if a type `T` is [`Newable`](https://typyx.rccyx.com/types/Newable.html).
+* [`IsNot<T, U>`](https://typyx.rccyx.com/types/IsNot.html) - Checks if two types are not identical.
 * [`IsNullable<T>`](https://typyx.rccyx.com/types/IsNullable.html) - Checks if a type `T` is [`Nullable`](https://typyx.rccyx.com/types/Nullable.html).
 * [`IsNumber<T>`](https://typyx.rccyx.com/types/IsNumber.html) - Checks if a type `T` is a `number`.
 * [`IsNumeric<T>`](https://typyx.rccyx.com/types/IsNumeric.html) - Checks if a type `T` is [`Numeric`](https://typyx.rccyx.com/types/Numeric.html).
@@ -163,24 +178,30 @@ Check out the full [API reference](https://typyx.rccyx.com/) for detailed usage 
 * [`IsString<T>`](https://typyx.rccyx.com/types/IsString.html) - Checks if a type `T` is a `string`.
 * [`IsSymbol<T>`](https://typyx.rccyx.com/types/IsSymbol.html) - Checks if a type `T` is a `symbol`.
 * [`IsTruthy<T>`](https://typyx.rccyx.com/types/IsTruthy.html) - Checks if a type `T` resolves to a truthy value.
+* [`IsUnknown<T>`](https://typyx.rccyx.com/types/IsUnknown.html) - Checks if a type `T` is assignable to `unknown`.
 * [`TestType<T1, T2, Expected>`](https://typyx.rccyx.com/types/TestType.html) - Tests whether `T1` and `T2` match the expected relationship.
 * [`TruthyProperties<T>`](https://typyx.rccyx.com/types/TruthyProperties.html) - Extracts truthy properties from an object type `T`.
 
-### Core, nullability, and misc utilities
+### Core, primitives, callables, and nullability
 
-* [`EmptyObject`](https://typyx.rccyx.com/types/EmptyObject.html) - Represents an empty object-like shape.
+* [`AnyFunction`](https://typyx.rccyx.com/types/AnyFunction.html) - Represents any function accepting any arguments and returning any value.
+* [`EmptyObject`](https://typyx.rccyx.com/types/EmptyObject.html) - Represents a non-nullish object-like value.
 * [`ExcludeNull<T>`](https://typyx.rccyx.com/types/ExcludeNull.html) - Excludes `null` from a type `T`.
 * [`ExcludeNullable<T>`](https://typyx.rccyx.com/types/ExcludeNullable.html) - Excludes [`Nullable`](https://typyx.rccyx.com/types/Nullable.html) from a type `T`.
 * [`ExcludeUndefined<T>`](https://typyx.rccyx.com/types/ExcludeUndefined.html) - Excludes `undefined` from a type `T`.
 * [`Falsy`](https://typyx.rccyx.com/types/Falsy.html) - Represents JavaScript falsy values.
 * [`Maybe<T>`](https://typyx.rccyx.com/types/Maybe.html) - Represents a type that may be [`Nullable`](https://typyx.rccyx.com/types/Nullable.html).
 * [`MaybeUndefined<T>`](https://typyx.rccyx.com/types/MaybeUndefined.html) - Represents a type that may be `undefined`.
+* [`MaybeUnknown<T>`](https://typyx.rccyx.com/types/MaybeUnknown.html) - Represents a type widened with `unknown`.
+* [`Message<T>`](https://typyx.rccyx.com/types/Message.html) - Used to surface readable error messages instead of `never`.
 * [`Newable`](https://typyx.rccyx.com/types/Newable.html) - Represents constructor functions that can be invoked with `new`.
 * [`NewType<New, Base>`](https://typyx.rccyx.com/types/NewType.html) - Creates a branded type derived from an existing base type.
 * [`Nullable`](https://typyx.rccyx.com/types/Nullable.html) - Represents a type that can be `null` or `undefined`.
 * [`Optional<T>`](https://typyx.rccyx.com/types/Optional.html) - Represents a type that may be `null`, similar to Python's `Optional` or Rust's `Option`.
+* [`PartialExcept<T, P>`](https://typyx.rccyx.com/types/PartialExcept.html) - Makes all properties in `T` optional except those in `P`, which remain required.
 * [`Primitive`](https://typyx.rccyx.com/types/Primitive.html) - Represents all JavaScript primitive types.
 * [`Simplify<T>`](https://typyx.rccyx.com/types/Simplify.html) - Flattens and normalizes a type for better readability.
+* [`UnknownFunction`](https://typyx.rccyx.com/types/UnknownFunction.html) - Represents a function accepting `unknown` arguments and returning `unknown`.
 
 The best way to understand how these types work is to check the [tests directory](/tests/).
 

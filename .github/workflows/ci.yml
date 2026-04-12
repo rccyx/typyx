@@ -22,10 +22,6 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  validate-pr:
-    if: github.event_name == 'pull_request'
-    uses: ./.github/workflows/on-workflow-call-validate-pr-title.yml
-    secrets: inherit
   format:
     uses: ./.github/workflows/on-workflow-call-format.yml
   lint:

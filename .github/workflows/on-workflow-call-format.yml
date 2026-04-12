@@ -1,4 +1,4 @@
-name: Prettier
+name: CI / Format
 
 on:
   workflow_dispatch:

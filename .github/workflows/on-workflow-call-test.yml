@@ -5,9 +5,23 @@ on:
   workflow_call:
 
 jobs:
-  run:
+  ts:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        typescript-version:
+          - '5.0' # released: Mar 16, 2023
+          - '5.1' # released: Jun 1, 2023
+          - '5.2' # released: Aug 22, 2023
+          - '5.3' # released: Nov 20, 2023
+          - '5.4' # released: Mar 6, 2024
+          - '5.5' # released: Jun 20, 2024
+          - '5.6' # released: Sep 9, 2024
+          - '5.7' # released: Nov 2024
+          - '5.8' # released: Mar 5, 2025
+          - '5.9' # released: Oct 1, 2025
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: ./.github/actions/prepare
       - run: pnpm run test && pnpm lint:ts

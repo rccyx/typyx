@@ -1,4 +1,4 @@
-name: NPM
+name: CI / NPM
 
 on:
   workflow_dispatch:

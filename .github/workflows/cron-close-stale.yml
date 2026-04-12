@@ -1,8 +1,8 @@
-name: "Close stale issues and PRs"
+name: 'Close stale issues and PRs'
 
 on:
   schedule:
-    - cron: "30 1 * * *"
+    - cron: '30 1 * * *'
   workflow_dispatch:
 
 jobs:
@@ -18,10 +18,10 @@ jobs:
 
           remove-stale-when-updated: true
 
-          any-of-labels: "Status: Awaiting Response,Resolution: Not Reproducible"
-          stale-issue-label: "Status: Stale"
-          stale-pr-label: "Status: Stale"
+          any-of-labels: 'Status: Awaiting Response,Resolution: Not Reproducible'
+          stale-issue-label: 'Status: Stale'
+          stale-pr-label: 'Status: Stale'
 
-          stale-issue-message: "This issue is stale because it has been open 60 days with no activity. Remove stale label or comment or this will be closed in 7 days."
-          close-issue-message: "This issue was closed because it has been stalled for 7 days with no activity."
-          stale-pr-message: "This PR is stale because it has been open 60 days with no activity."
+          stale-issue-message: 'This issue is stale because it has been open 60 days with no activity. Remove stale label or comment or this will be closed in 7 days.'
+          close-issue-message: 'This issue was closed because it has been stalled for 7 days with no activity.'
+          stale-pr-message: 'This PR is stale because it has been open 60 days with no activity.'

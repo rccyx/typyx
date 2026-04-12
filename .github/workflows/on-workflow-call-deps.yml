@@ -1,4 +1,4 @@
-name: Lint Knip (Production Only)
+name: CI / Lint Knip (Production Only)
 
 on:
   workflow_dispatch:

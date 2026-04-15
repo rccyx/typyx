@@ -24,4 +24,8 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - uses: ./.github/actions/prepare
+      - name: Use TypeScript ${{ matrix.typescript-version }}
+        run: pnpm add -D typescript@${{ matrix.typescript-version }}
+      - name: Show compiler version
+        run: pnpm exec tsc --version
       - run: pnpm run test && pnpm lint:ts

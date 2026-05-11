@@ -21,6 +21,7 @@ jobs:
           - '5.7' # released: Nov 2024
           - '5.8' # released: Mar 5, 2025
           - '5.9' # released: Oct 1, 2025
+          - '6.0' # released Mar 23, 2026
     steps:
       - uses: actions/checkout@v5
       - uses: ./.github/actions/prepare

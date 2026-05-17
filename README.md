@@ -212,3 +212,4 @@ See [releases](https://github.com/rccyx/typyx/releases).
 ## License
 
 MIT © [@rccyx](https://rccyx.com)
+

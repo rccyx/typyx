@@ -189,3 +189,79 @@ test('_', () => {
   const result: TestType<OrderData, typeof testOrderData, true> = true;
   expect(result).toBe(true);
 });
+
+test('_', () => {
+  type JobConfig<Env, Iso, Sched> = {
+    execution: IfEquals<
+      Env,
+      'wasm',
+      {
+        memoryPages: number;
+        importedModules: string[];
+      },
+      IfEquals<
+        Env,
+        'container',
+        {
+          image: string;
+          runtime: 'runc' | 'gvisor';
+        },
+        NotIncluded
+      >
+    >;
+
+    isolation: IfEquals<
+      Iso,
+      'none',
+      NotIncluded,
+      {
+        quota: IfEquals<
+          Iso,
+          'cgroup',
+          {
+            cpuShares: number;
+            memoryLimitBytes: number;
+          },
+          NotIncluded
+        >;
+      }
+    >;
+
+    schedule: IfEquals<
+      Sched,
+      'cron',
+      {
+        expression: string;
+        timezone: string;
+      },
+      IfEquals<
+        Sched,
+        'immediate',
+        {
+          priority: number;
+        },
+        NotIncluded
+      >
+    >;
+  };
+
+  // 3. Compute the pruned type
+  type WasmCronNoIsolation = Prune<JobConfig<'wasm', 'none', 'cron'>>;
+  // 4. Declare the exact variable shape matching the post's expected output
+  const testJobData: WasmCronNoIsolation = {
+    execution: {
+      importedModules: ['env', 'wasi_snapshot_preview1'],
+      memoryPages: 2,
+    },
+    schedule: {
+      expression: '0 0 * * *',
+      timezone: 'UTC',
+    },
+    // TS will throw an error because 'isolation' has been completely pruned out.
+    // @ts-expect-error <-- Object literal may only specify known properties
+    isolation: 'none', //
+  };
+
+  const result: TestType<WasmCronNoIsolation, typeof testJobData, true> = true;
+  expect(result).toBe(true);
+});

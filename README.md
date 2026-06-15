@@ -9,6 +9,7 @@ Bullet-proof TypeScript, even more.
 ## Installation
 
 **npm**
+
 ```bash
 npm i -D typyx
 ```
@@ -124,6 +125,8 @@ Check out the full [API reference](https://typyx.rccyx.com/) for detailed usage 
 * [`IsPositive<N>`](https://typyx.rccyx.com/types/IsPositive.html) - Checks if a numeric type is positive.
 * [`IsPositiveFloat<N>`](https://typyx.rccyx.com/types/IsPositiveFloat.html) - Checks if a numeric type is a positive float.
 * [`IsPositiveInteger<N>`](https://typyx.rccyx.com/types/IsPositiveInteger.html) - Checks if a numeric type is a positive integer.
+* [`Max<A, B>`](https://typyx.rccyx.com/types/Max.html) - Gets the larger of two [`Numeric`](https://typyx.rccyx.com/types/Numeric.html) literals.
+* [`Min<A, B>`](https://typyx.rccyx.com/types/Min.html) - Gets the smaller of two [`Numeric`](https://typyx.rccyx.com/types/Numeric.html) literals.
 * [`NegativeFloat<N>`](https://typyx.rccyx.com/types/NegativeFloat.html) - Represents a negative [`Float<N>`](https://typyx.rccyx.com/types/Float.html).
 * [`NegativeFloatString<S>`](https://typyx.rccyx.com/types/NegativeFloatString.html) - Represents a negative float parsed from a string.
 * [`NegativeInteger<N>`](https://typyx.rccyx.com/types/NegativeInteger.html) - Represents a negative [`Integer<N>`](https://typyx.rccyx.com/types/Integer.html).
@@ -212,4 +215,3 @@ See [releases](https://github.com/rccyx/typyx/releases).
 ## License
 
 MIT © [@rccyx](https://rccyx.com)
-

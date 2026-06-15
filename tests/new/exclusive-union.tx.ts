@@ -1,8 +1,9 @@
+import type { Is, Expect } from './../__assertion';
 import type { ExclusiveUnion } from '../../src/types';
-import { expect, is, describe, it } from 'testyx';
+import { describe, it } from 'vitest';
 
-describe('ExclusiveUnion (strict)', () => {
-  it('should make non-present properties never', () => {
+describe('ExclusiveUnion', () => {
+  it('makes non-present properties never', () => {
     type Config = ExclusiveUnion<
       | { dbConnectionString: string; maxConnections: number }
       | { apiEndpoint: string; apiKey: string }
@@ -38,14 +39,10 @@ describe('ExclusiveUnion (strict)', () => {
           secretAccessKey: string;
         };
 
-    expect(
-      is<Config, Expected>().describe(
-        'ensures other properties are typed as never'
-      )
-    );
+    type _ = Expect<Is<Config, Expected>>;
   });
 
-  it('should support discriminated unions', () => {
+  it('supports discriminated unions', () => {
     type Shape = ExclusiveUnion<
       { type: 'circle'; radius: number } | { type: 'square'; side: number }
     >;
@@ -54,14 +51,10 @@ describe('ExclusiveUnion (strict)', () => {
       | { type: 'circle'; radius: number; side?: never }
       | { type: 'square'; side: number; radius?: never };
 
-    expect(
-      is<Shape, Expected>().describe(
-        'enforces one discriminated branch active at a time'
-      )
-    );
+    type _ = Expect<Is<Shape, Expected>>;
   });
 
-  it('should work with single property unions', () => {
+  it('preserves same-key discriminated unions without optional never noise', () => {
     type SinglePropUnion = ExclusiveUnion<
       { type: 'a'; value: number } | { type: 'b'; value: string }
     >;
@@ -76,14 +69,10 @@ describe('ExclusiveUnion (strict)', () => {
           value: string;
         };
 
-    expect(
-      is<SinglePropUnion, Expected>().describe(
-        'preserves simple discriminated unions without optional never noise'
-      )
-    );
+    type _ = Expect<Is<SinglePropUnion, Expected>>;
   });
 
-  it('should handle nested objects', () => {
+  it('handles nested objects', () => {
     type NestedUnion = ExclusiveUnion<
       | {
           type: 'user';
@@ -111,14 +100,10 @@ describe('ExclusiveUnion (strict)', () => {
           };
         };
 
-    expect(
-      is<NestedUnion, Expected>().describe(
-        'handles nested shapes while maintaining exclusivity'
-      )
-    );
+    type _ = Expect<Is<NestedUnion, Expected>>;
   });
 
-  it('should handle optional discriminators correctly', () => {
+  it('keeps shared keys and excludes branch-only keys', () => {
     type Variant = ExclusiveUnion<
       | { type: 'json'; payload: { name: string } }
       | { type: 'xml'; payload: string }
@@ -142,10 +127,6 @@ describe('ExclusiveUnion (strict)', () => {
           payload?: never;
         };
 
-    expect(
-      is<Variant, Expected>().describe(
-        'ensures unused discriminators are explicitly never'
-      )
-    );
+    type _ = Expect<Is<Variant, Expected>>;
   });
 });

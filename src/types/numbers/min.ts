@@ -9,3 +9,10 @@ export type MinPositive<
     ? N1
     : N2
   : MinPositive<N1, N2, [-1, ...L]>;
+
+export type MinNegative<
+  A extends Numeric,
+  B extends Numeric,
+  A1 extends Numeric,
+  B1 extends Numeric,
+> = A extends MinPositive<A, B> ? B1 : A1;

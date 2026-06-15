@@ -29,5 +29,5 @@ export type { IsNegative, IsPositive, IsInteger, IsFloat, Abs } from './math';
 // Range types
 export type { PositiveRange } from './range';
 
-export type { MinPositive } from './min';
-export type { MaxPositive } from './max';
+export type { MinPositive, MinNegative } from './min';
+export type { MaxPositive, MaxNegative } from './max';

@@ -14,3 +14,10 @@ export type MaxPositive<
   : areAllNegative extends true
     ? B1
     : A1;
+
+export type MaxNegative<
+  A extends Numeric,
+  B extends Numeric,
+  A1 extends Numeric,
+  B1 extends Numeric,
+> = A extends MinPositive<A, B> ? A1 : B1;

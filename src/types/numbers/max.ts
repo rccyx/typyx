@@ -1,4 +1,5 @@
 import { Numeric } from '../primitives';
+import { Abs, IsNegative } from './math';
 import { MinPositive } from './min';
 
 export type MaxPositive<
@@ -21,3 +22,14 @@ export type MaxNegative<
   A1 extends Numeric,
   B1 extends Numeric,
 > = A extends MinPositive<A, B> ? A1 : B1;
+
+export type Max<
+  A extends Numeric,
+  B extends Numeric,
+> = IsNegative<A> extends true
+  ? IsNegative<B> extends true
+    ? MaxNegative<Abs<A>, Abs<B>, A, B>
+    : B
+  : IsNegative<B> extends true
+    ? A
+    : MaxPositive<A, B>;

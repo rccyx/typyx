@@ -1,5 +1,5 @@
-import type { Is, Expect } from './../__assertion';
-import type { ExclusiveUnion } from '../../src/types';
+import type { Is, Expect } from './__assertion';
+import type { ExclusiveUnion } from '../src/types';
 import { describe, it } from 'vitest';
 
 describe('ExclusiveUnion', () => {

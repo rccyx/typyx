@@ -1,5 +1,5 @@
-import type { Is, Expect } from './../__assertion';
-import type { Append, Head, Last, Pop, Prepend, Tail } from '../../src';
+import type { Is, Expect } from './__assertion';
+import type { Append, Head, Last, Pop, Prepend, Tail } from '../src';
 
 export type _HeadNumericTuple = Expect<Is<Head<[1, 2, 3]>, 1>>;
 

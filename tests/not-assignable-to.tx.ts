@@ -1,5 +1,5 @@
-import type { Is, Expect } from './../__assertion';
-import type { NotAssignableTo } from '../../src';
+import type { Is, Expect } from './__assertion';
+import type { NotAssignableTo } from '../src';
 
 export type _NotAssignableToRemovesString = Expect<
   Is<NotAssignableTo<string | number, string>, number>

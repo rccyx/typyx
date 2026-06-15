@@ -1,5 +1,5 @@
-import type { Is, Expect } from './../__assertion';
-import type { Zip } from '../../src';
+import type { Is, Expect } from './__assertion';
+import type { Zip } from '../src';
 
 export type _ZipPairsElementsByIndex = Expect<
   Is<Zip<[1, 2, 3], ['a', 'b', 'c']>, [[1, 'a'], [2, 'b'], [3, 'c']]>

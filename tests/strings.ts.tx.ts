@@ -1,11 +1,5 @@
-import type { Is, Expect } from './../__assertion';
-import type {
-  Strlen,
-  StrMin,
-  StrMax,
-  StrBetween,
-  EqualStrlen,
-} from '../../src';
+import type { Is, Expect } from './__assertion';
+import type { Strlen, StrMin, StrMax, StrBetween, EqualStrlen } from '../src';
 
 export type _StrlenEmptyString = Expect<Is<Strlen<''>, 0>>;
 

@@ -11,3 +11,8 @@ export type { IsArrayIncludesTypeof } from './includes';
 export type { Last, Append, Head, Pop, Prepend, Tail } from './positions';
 
 export type { Zip } from './zip';
+
+export { Transpose } from './transpose';
+
+export { ArrayMin } from './min';
+export { ArrayMax } from './max';

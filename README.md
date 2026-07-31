@@ -91,7 +91,10 @@ Check out the full [API reference](https://typyx.rccyx.com/) for detailed usage 
 * [`Pop<Arr>`](https://typyx.rccyx.com/types/Pop.html) - Removes the last element of a tuple.
 * [`Prepend<Arr, Item>`](https://typyx.rccyx.com/types/Prepend.html) - Adds an item to the start of a tuple.
 * [`SizedTuple<T, N>`](https://typyx.rccyx.com/types/SizedTuple.html) - Creates a tuple of length `N` where each element is of type `T`.
+* [`ArrayMax<Arr>`](https://typyx.rccyx.com/types/ArrayMax.html) - Extracts the maximum numeric value in a given array of numeric types.
+* [`ArrayMin<Arr>`](https://typyx.rccyx.com/types/ArrayMin.html) - Extracts the minimum numeric value in a given array of numeric types.
 * [`Tail<Arr>`](https://typyx.rccyx.com/types/Tail.html) - Removes the first element of a tuple.
+* [`Transpose<M>`](https://typyx.rccyx.com/types/Transpose.html) - Transposes a matrix (2D array) by converting rows into columns and columns into rows.
 * [`Tuple<T>`](https://typyx.rccyx.com/types/Tuple.html) - Narrows `T` to a tuple type and rejects regular arrays.
 * [`UniqueArray<T>`](https://typyx.rccyx.com/types/UniqueArray.html) - Creates a unique array type from an array type `T`.
 * [`Zip<L, L1>`](https://typyx.rccyx.com/types/Zip.html) - Pairs elements from two tuples by index into a tuple of pairs.

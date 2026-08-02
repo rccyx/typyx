@@ -17,4 +17,4 @@ export { Transpose } from './transpose';
 export { ArrayMin } from './min';
 export { ArrayMax } from './max';
 export { ArrayFilter } from './filter';
-export { ArrayIntersection} from './intersection';
+export { ArrayIntersection } from './intersection';

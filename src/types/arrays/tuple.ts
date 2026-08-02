@@ -1,4 +1,3 @@
-import type { Numeric } from '../primitives';
 import type { PositiveInteger } from '../numbers/integer';
 
 /**
@@ -14,7 +13,14 @@ export type Tuple<T> = T extends readonly unknown[]
     : T
   : never;
 
+type BuildSizedTuple<
+  T,
+  N extends number,
+  Acc extends T[] = [],
+> = Acc['length'] extends N ? Acc : BuildSizedTuple<T, N, [...Acc, T]>;
+
 /**
+ *
  * Represents a tuple of size `N`, where `N` is a positive integer.
  * The tuple's length is exactly `N`, with each element of the tuple being of type `T`.
  *
@@ -31,15 +37,13 @@ export type Tuple<T> = T extends readonly unknown[]
  *
  * @see Tuple
  */
-export type SizedTuple<
-  T,
-  N extends Numeric,
-  Acc extends T[] = [],
-> = N extends PositiveInteger<infer M>
-  ? Acc['length'] extends M
-    ? Acc
-    : SizedTuple<T, M, [T, ...Acc]>
-  : never;
+export type SizedTuple<T, N extends number> = number extends N
+  ? T[]
+  : N extends 0
+    ? []
+    : N extends PositiveInteger<N>
+      ? BuildSizedTuple<T, N>
+      : never;
 
 /**
  * Represents a non-empty array of elements of type `T`.

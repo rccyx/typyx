@@ -79,7 +79,7 @@
     "format-check": "prettier --check .",
     "lint": "pnpm lint:ts && pnpm lint:knip",
     "lint:knip": "knip --production --strict --exclude exports,nsExports,types,nsTypes",
-    "lint:ts": "tsc --noEmit; eslint .",
+    "lint:ts": "tsc --noEmit && eslint src tests rollup.config.ts vitest.config.ts",
     "test": "vitest --coverage --run"
   },
   "sideEffects": false,

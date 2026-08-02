@@ -1,9 +1,9 @@
 import rollupPluginReplace from '@rollup/plugin-replace';
 import rollupPluginTypescript from '@rollup/plugin-typescript';
-import { type Plugin, type RollupOptions } from 'rollup';
+import path from 'node:path';
+import type { Plugin, RollupOptions } from 'rollup';
 import rollupPluginAutoExternal from 'rollup-plugin-auto-external';
 import rollupPluginDts from 'rollup-plugin-dts';
-import path from 'path';
 
 const common: RollupOptions = {
   input: 'src/index.ts',
@@ -20,12 +20,12 @@ const runtimes: RollupOptions = {
   ...common,
   output: [
     {
-      file: './dist/index.mjs',
+      file: 'dist/index.mjs',
       format: 'esm',
       sourcemap: false,
     },
     {
-      file: './dist/index.cjs',
+      file: 'dist/index.cjs',
       format: 'cjs',
       sourcemap: false,
     },
@@ -33,7 +33,12 @@ const runtimes: RollupOptions = {
   plugins: [
     rollupPluginAutoExternal(),
     rollupPluginTypescript({
-      tsconfig: 'tsconfig.build.json',
+      tsconfig: './tsconfig.json',
+      include: ['src/**/*.ts'],
+      noEmitOnError: true,
+      sourceMap: false,
+      declaration: false,
+      declarationMap: false,
     }),
     rollupPluginReplace({
       values: {
@@ -46,15 +51,13 @@ const runtimes: RollupOptions = {
 
 const types: RollupOptions = {
   input: 'src/index.ts',
-  output: [
-    {
-      file: path.resolve('dist', 'index.d.ts'),
-      format: 'esm',
-    },
-  ],
+  output: {
+    file: path.resolve('dist', 'index.d.ts'),
+    format: 'esm',
+  },
   plugins: [
     rollupPluginDts({
-      tsconfig: 'tsconfig.build.json',
+      tsconfig: './tsconfig.json',
       respectExternal: true,
     }),
   ] as Plugin[],

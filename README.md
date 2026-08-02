@@ -85,6 +85,7 @@ Check out the full [API reference](https://typyx.rccyx.com/) for detailed usage 
 * [`Append<Arr, Item>`](https://typyx.rccyx.com/types/Append.html) - Adds an item to the end of a tuple.
 * [`EitherOneOrMany<T>`](https://typyx.rccyx.com/types/EitherOneOrMany.html) - Represents either a single value of type `T` or an array of `T`.
 * [`ArrayFilter<T, P>`](https://typyx.rccyx.com/types/ArrayFilter.html) - Filters elements from an array type `T` based on a predicate type `P`.
+* [`ArrayIntersection<Arr>`](https://typyx.rccyx.com/types/ArrayIntersection.html) - Computes the intersection of the element types shared by every tuple or array in `Arr`.
 * [`Head<Arr>`](https://typyx.rccyx.com/types/Head.html) - Gets the first element of a tuple.
 * [`IsArrayIncludesTypeof<Arr, T>`](https://typyx.rccyx.com/types/IsArrayIncludesTypeof.html) - Checks whether an array type `Arr` is assignable to `T[]`.
 * [`Last<Arr>`](https://typyx.rccyx.com/types/Last.html) - Gets the last element of a tuple.

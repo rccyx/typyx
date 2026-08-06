@@ -69,7 +69,7 @@ export type _NoTupleDuplicatesBoolean = Expect<
   >
 >;
 
-// Fails because K & PropertyKey drops null entirely
+// fails because K & PropertyKey drops null entirely
 export type _NoTupleDuplicatesNull = Expect<
   Is<
     NoTupleDuplicates<[null, undefined, null]>,
@@ -77,7 +77,7 @@ export type _NoTupleDuplicatesNull = Expect<
   >
 >;
 
-// Multiple distinct primitive duplicates
+// multiple distinct primitive duplicates
 export type _NoTupleDuplicatesMixedPrimitives = Expect<
   Is<
     NoTupleDuplicates<['a', 1, true, 'a', 1, true]>,

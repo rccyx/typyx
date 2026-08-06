@@ -46,11 +46,14 @@ export type _NoTupleDuplicatesCustomMessage = Expect<
 
 
 export type _NoTupleDuplicatesCustomMessageNegation = Expect<
-  Is<Not<
-    NoTupleDuplicates<['A', 'B', 'A'], 'Duplicate Env'>,
-    { readonly 'Duplicate zEnv: A': never }
+  Not<
+    Is<
+      NoTupleDuplicates<['A', 'B', 'A'], 'Duplicate Env'>,
+      { readonly 'Duplicate typooEnv: A': never }
+    >
   >
->>;
+>;
+
 
 export type _NoTupleDuplicatesNumber = Expect<
   Is<

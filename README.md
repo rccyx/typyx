@@ -93,6 +93,8 @@ Check out the full [API reference](https://typyx.rccyx.com/) for detailed usage 
 * [`Pop<Arr>`](https://typyx.rccyx.com/types/Pop.html) - Removes the last element of a tuple.
 * [`Prepend<Arr, Item>`](https://typyx.rccyx.com/types/Prepend.html) - Adds an item to the start of a tuple.
 * [`SizedTuple<T, N>`](https://typyx.rccyx.com/types/SizedTuple.html) - Creates a tuple of length `N` where each element is of type `T`.
+* [`NoTupleDuplicates<T, Message>`](https://typyx.rccyx.com/types/NoTupleDuplicates.html) - Enforces tuple element uniqueness at compile time and surfaces typed error messages for duplicate values.
+* [`TupleDuplicates<T>`](https://typyx.rccyx.com/types/TupleDuplicates.html) - Extracts a union of all duplicate element types present within a tuple.
 * [`ArrayMax<Arr>`](https://typyx.rccyx.com/types/ArrayMax.html) - Extracts the maximum numeric value in a given array of numeric types.
 * [`ArrayMin<Arr>`](https://typyx.rccyx.com/types/ArrayMin.html) - Extracts the minimum numeric value in a given array of numeric types.
 * [`Tail<Arr>`](https://typyx.rccyx.com/types/Tail.html) - Removes the first element of a tuple.

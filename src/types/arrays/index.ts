@@ -1,5 +1,11 @@
 // Tuple types
-export type { Tuple, SizedTuple, NonEmptyArray } from './tuple';
+export type {
+  Tuple,
+  SizedTuple,
+  NonEmptyArray,
+  NoTupleDuplicates,
+  TupleDuplicates,
+} from './tuple';
 
 // Uniqueness types
 export type { UniqueArray } from './uniqueness';

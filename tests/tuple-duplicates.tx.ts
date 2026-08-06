@@ -62,7 +62,6 @@ export type _NoTupleDuplicatesNumber = Expect<
   >
 >;
 
-// Fails because K & PropertyKey drops booleans entirely
 export type _NoTupleDuplicatesBoolean = Expect<
   Is<
     NoTupleDuplicates<[true, false, true]>,

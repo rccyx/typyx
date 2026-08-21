@@ -87,8 +87,7 @@
 <p>With <code>type-fest</code>, if you want a basic branded type, you&#39;re forced into an over-engineered Tagged system.</p>
 <p>I just want to enforce nominal typing for a string or number, I don&#39;t want or need any of this.</p>
 <blockquote>
-<p>[!NOTE]
-Usually in the TS/JS ecosystem it&#39;s called Branded or Opaque types. I called it <code>NewType</code> based on <a href="https://docs.python.org/3/library/typing.html#newtype">Python&#39;s <code>NewType</code></a>.</p>
+<p>Usually in the TS/JS ecosystem it&#39;s called Branded or Opaque types. I called it <code>NewType</code> based on <a href="https://docs.python.org/3/library/typing.html#newtype">Python&#39;s <code>NewType</code></a>.</p>
 </blockquote>
 <p>A known use case is to use it to differentiate <code>UserId</code> from <code>OrderId</code> (both strings) where object ordering won&#39;t save you from same parameter transposition at compile time.</p>
 <p>But I had this problem once:</p>

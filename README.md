@@ -1,12 +1,379 @@
-<div align="center">
 
 # typyx
 
-Bullet-proof TypeScript, even more.
+<p align="center">
+  <a href="./assets/demo.gif">
+    <img src="./assets/demo.gif" alt="asryx demo" width="100%">
+  </a>
+</p>
 
-</div>
+## Overview
+
+This library is a set of 150+ composable type-level primitives that exists purely for type-level metaprogramming.
+
+Used to build SDKs, schema systems, configuration engines, frameworks, typed DSLs, query builders, or any other library with an API that needs frictionless type inference/ergonomics.
+
+These are just plain TS types that you assemble into larger types. No runtime code here.
+
+You may be familiar with [`type-fest`](https://github.com/sindresorhus/type-fest), [`ts-toolbelt`](https://github.com/millsp/ts-toolbelt), [`ts-essentials`](https://github.com/ts-essentials/ts-essentials), [`utility-types`](https://github.com/piotrwitek/utility-types), and more.
+
+So why does this exist? 
+
+Because none of them fit my worfklow.
+
+Because `Type-Fest` is too generic (serves the entire TS developer pool), and because `ts-toolbelt` is ancient, supports older TS (3.8+ / 4.x) and uses this weird nomenclature: `O.Merge` / `L.Concat`, and more.
+
+I've been building TypeScript apps and libraries for years at this point, kept running into some increasingly weird type-level problems that I can't Google or LLM my way out of. 
+
+Eventually, I made this.
+
+Some of these libraries contain equivalents to individual types in here.
+
+That's unavoidable, afterall I didn't invent [`Zip<N,M>`](https://docs.python.org/3.3/library/functions.html#zip) or [`Equals<U,V>`](https://stackoverflow.com/questions/68961864/how-does-the-equals-work-in-typescript).
+
+Some foundational types are here simply because importing another entire package for one primitive, such as `DeepOmit<T, O>`, wouldn't make sense.
+
+Other types in here don't even exist elsewhere at all (more below).
+
+Also, I may note that most utility libraries are collections of finished helpers. Someone needs a type, contributes it, and the collection grows horizontally. And over time, the package becomes a broad catalog made to cover as many unrelated projects and use cases as possible.
+
+This is just a vertically integrated type-system that only I use. 
+
+Every type in here solves at least one problem I encountered throughout the years.
+
+The library builds itself from its own primitives. 
+
+The same primitives are then used to test the library, are also being turned into dedicated testing infrastructure for my other packages, and are used by those packages to construct their own public APIs that use this package.
+
+<details>
+<summary><strong>Let me walk you through some use cases.</strong></summary>
+
+<br/>
+
+Let's start with a very simple and small example:
+
+At some point I needed a string that could independently enforce a prefix, something somewhere in the middle, and a suffix. 
+
+`EnforcedString<P,M,S>` does it:
+
+Say you're mapping CSS variables:
+
+```ts
+import type { EnforcedString } from 'typyx';
+
+type CssVar = EnforcedString<'--'>;
+
+const color: CssVar = '--color-primary'; // valid
+const invalid: CssVar = 'color-primary'; // error
+```
+
+Maybe you need a substring constraint instead:
+
+```ts
+type I18nKey = EnforcedString<string, '.'>;
+
+const label: I18nKey = 'button.label'; // valid
+const invalid: I18nKey = 'buttonlabel'; // error
+```
+
+Or all three:
+
+```ts
+type LocaleKey = EnforcedString<'i18n.', '.', '.label'>;
+
+const label: LocaleKey = 'i18n.button.label'; // valid
+const invalid: LocaleKey = 'button.label'; // error
+```
+
+Then there are boolean operators and type-level control flow: `And`, `Or`, `Not`, `Xor`, `Nand`, `Nor`, `Xnor`, `Xand`, `If`, `IfEquals`, and `IfExtends`.
+
+They operate directly on boolean types and compose with the predicate layer.
+
+```ts
+import type {
+  And,
+  If,
+  IsNever,
+  IsString,
+  Not,
+  StringifyPrimitive,
+} from 'typyx';
+
+type IsValidInput<T> = And<IsString<T>, Not<IsNever<T>>>;
+
+type Serialize<T> = If<
+  IsValidInput<T>,
+  T,
+  StringifyPrimitive<T>
+>;
+```
+
+But you're probably familiar with `IfEquals`. So what's special?
+
+It can be combined with `NotIncluded` and `Prune`.
+
+One time I was building a hyper-complex dispatch system and ran into a problem where configuration shapes depended on multiple axes at once.
+
+If it's one discriminant, just use a union, but 3 different settings changing 3 different regions of the same object becomes a giant union very quickly.
+
+Say you have 3 environments, 3 isolation strategies, and 3 schedule modes.
+
+That's already 27 possible combos.
+
+You can enumerate all 27 object types manually with unions. It would work, kind of.
+
+Or you declare the rules and let the compiler derive the final shape:
+
+```ts
+import type { IfEquals, NotIncluded, Prune } from 'typyx';
+
+type Environment = 'wasm' | 'container' | 'native';
+type Isolation = 'none' | 'cgroup' | 'vm';
+type Schedule = 'cron' | 'immediate' | 'manual';
+
+type JobConfig<
+  Env extends Environment,
+  Iso extends Isolation,
+  Sched extends Schedule,
+> = Prune<{
+  execution: IfEquals<
+    Env,
+    'wasm',
+    {
+      memoryPages: number;
+      importedModules: string[];
+    },
+    IfEquals<
+      Env,
+      'container',
+      {
+        image: string;
+        runtime: 'runc' | 'gvisor';
+      },
+      NotIncluded
+    >
+  >;
+
+  isolation: IfEquals<
+    Iso,
+    'none',
+    NotIncluded,
+    {
+      quota: IfEquals<
+        Iso,
+        'cgroup',
+        {
+          cpuShares: number;
+          memoryLimitBytes: number;
+        },
+        NotIncluded
+      >;
+    }
+  >;
+
+  schedule: IfEquals<
+    Sched,
+    'cron',
+    {
+      expression: string;
+      timezone: string;
+    },
+    IfEquals<
+      Sched,
+      'immediate',
+      {
+        priority: number;
+      },
+      NotIncluded
+    >
+  >;
+}>;
+
+type WasmCronNoIsolation =
+  JobConfig<'wasm', 'none', 'cron'>;
+
+const job: WasmCronNoIsolation = {
+  execution: {
+    memoryPages: 256,
+    importedModules: ['env', 'wasi_snapshot_preview1'],
+  },
+  schedule: {
+    expression: '*/5 * * * *',
+    timezone: 'UTC',
+  },
+};
+```
+
+The final type has no isolation key.
+
+No `isolation?: never`, nor `isolation?: undefined`. It just doesn't exist, so it doesn't pollute autocomplete or leak an impossible field into the validators.
+
+This is basically how this grew.
+
+A predicate can feed into a boolean operator, which feeds into `If`. `IfEquals` can resolve a field to `NotIncluded`. `Prune` can remove that field from the final object entirely.
+
+Numeric and string constraints can exist directly inside those computed shapes as you saw in the demo.
+
+Tuple operations can produce unions that are consumed by object transforms. A failure can return a readable payload too.
+
+Speaking of which.
+
+Say you want tuple uniqueness but still want a meaningful error payload instead of a vague `never`.
+
+```ts
+import type { UniqueArray } from 'typyx';
+
+type Good = UniqueArray<[1, 2, 3]>;
+// readonly [1, 2, 3]
+
+type Bad = UniqueArray<[1, 2, 1]>;
+// readonly [1, 2, 'Encountered duplicate element', 1]
+```
+
+Why is this?
+
+For instance, I recently released [`envyx`](https://github.com/rccyx/envyx), an environment checking library built on this foundation.
+
+In `envyx` I have this type:
+
+```ts
+type NoDuplicateIgnoredKeys<Ignored extends IgnoreValidationInputShape> =
+  Ignored extends readonly unknown[]
+    ? NoTupleDuplicates<
+        Ignored,
+        'Duplicate ignored environment variable'
+      >
+    : unknown;
+```
+
+I'm using `NoTupleDuplicates` to detect duplicate ignored environment variables.
+
+And `UniqueArray` is used directly in the public API:
+
+```ts
+/**
+ * Local variable names that should be read without `prefix`.
+ */
+disablePrefix?: UniqueArray<DisabledKeys>;
+```
+
+So if that option is a tuple, I can reject duplicate keys before anything reaches runtime.
+
+This type comes in handy, say you're writing a query builder, for example:
+
+```ts
+type QueryBuilder<Columns extends readonly string[]> = {
+  select: Columns & NoTupleDuplicates<Columns, 'Duplicate column selected'>;
+};
+
+function select<C extends readonly string[]>(columns: QueryBuilder<C>['select']) {}
+
+// works!
+select(['id', 'email', 'created_at']);
+
+// Type Error: Property 'Duplicate column selected: email
+select(['id', 'email', 'created_at', 'email']);
+```
+
+`envyx` also pulls in base everyday utilities `EmptyObject`, `NonEmptyArray`, `Simplify`, `UnionToIntersection` and non everyday utilties like `UnionToTuple`, which is often warned against, because union member ordering isn't guaranteed by the compiler. This is technically right (about order), but, when working with object keys, order doesn't matter, DX and zero duplication do.
+
+In the library, without `UnionToTuple`, users disabling prefixes would have to manually duplicate string keys in a literal array, which is workable when working with 2 keys:
+
+```ts
+const serverVars = { DATABASE_URL: z.url(), SECRET: z.string() } as const;
+
+// key duplication: annoying, drifts easily
+disablePrefix: ['DATABASE_URL', 'SECRET']
+```
+
+But in a modern monorepo, you'd have at least 20. So would go and manually supply every key?
+
+With `UnionToTuple<T>`, envyx provides a lightweight `keys()` helper (`return Object.keys(s) as UnionToTuple<keyof Schema>`) to derive those keys automatically at both runtime and compile time:
+
+```ts
+// zero duplication
+disablePrefix: keys(serverVars)
+```
+
+`EmptyObject` as simple and mundane as it is, is quite useful, and I use it everywhere.
+
+In many codebases `{}` is used an empty object which is actually `Record<string, never>`, which confuses people, but it actually means any value you can look up properties on, so it's `NonNullable<unknown>`.
+
+Small things like this matter.
+
+Speaking of small things.
+
+With `type-fest`, if you want a basic branded type, you're forced into an over-engineered Tagged system.
+
+I just want to enforce nominal typing for a string or number, I don't want or need any of this.
+
+> Usually in the TS/JS ecosystem it's called Branded or Opaque types. I called it `NewType` based on [Python's `NewType`](https://docs.python.org/3/library/typing.html#newtype).
+
+A known use case is to use it to differentiate `UserId` from `OrderId` (both strings) where object ordering won't save you from same parameter transposition at compile time.
+
+But I had this problem once:
+
+JavaScript has no distinct runtime value for an operation that intentionally produced no value.
+
+A function that returns nothing (typed `void` in TS) and a function that explicitly returns `undefined` both end up as `undefined` at runtime.
+
+Sometimes those are different states, which we need to track.
+
+Say you're tracking values across a functional pipeline. You may need to drop an internal unit result while preserving an explicitly supplied `undefined` as actual data.
+
+A private symbol/sentinel value can mark the distinction at runtime, while `NewType` preserves the same distinction at compile time:
+
+```ts
+const NO_VALUE = Symbol('internal:no-value');
+
+type NoValue = NewType<'NoValue', void>;
+
+type R<T> = {
+  value: T;
+  [NO_VALUE]?: true;
+};
+
+const unit: R<NoValue> = {
+  value: undefined as NoValue,
+  [NO_VALUE]: true,
+};
+
+const explicitUndefined: R<undefined> = {
+  value: undefined,
+};
+```
+
+Both contain `undefined`, but they're no longer interchangeable.
+
+Some problems may entail that you should have a configuration with numbers like: `PositiveInteger`, `NegativeInteger`, `PositiveFloat`, `NegativeFloat`, `PositiveRange`, `Odd`, `Even`, and string equivalents such as `NegativeFloatString<'-82739.283293237'>`.
+
+This works (non recursive):
+
+```ts
+import type { IsNegative } from 'typyx';
+
+type Result = IsNegative<10000000000000000000000000000>;
+// false
+```
+
+`Odd` and `Even` exist almost everywhere though, added here for convenience:
+
+```ts
+import type { Odd } from 'typyx';
+
+function takesOdd<N extends number>(value: Odd<N>) {}
+
+takesOdd(3); // valid
+takesOdd(4); // error
+```
+
+But anyway, you might want to check the docs.
+
+</details>
 
 ## Installation
+
+This is a types only library, there's no JS in the final bundle, so pass the `--save-dev` or `-D` flag:
 
 **npm**
 
@@ -20,13 +387,18 @@ npm i -D typyx
 pnpm i -D typyx
 ```
 
-Requires TypeScript `v5.0+`.
+Releases are OIDC signed and published through [GitHub Actions](./.github/workflows/on-workflow-call-release.yml) with npm [provenance.](https://github.blog/security/supply-chain-security/introducing-npm-package-provenance/)
+
+> [!IMPORTANT]
+> Requires TypeScript `v5.0+`. Every type here is compile-time tested in [CI](/.github/workflows/on-workflow-call-test.yml) from 5.0 through 6.0 on every push.
 
 ## Documentation
 
 Check out the full [API reference](https://typyx.rccyx.com/) for detailed usage examples and docs.
 
 ## Types
+
+The best way to understand how these types work (aside from docs) is to check how they're  [tested](/tests/).
 
 ### Object shape, keys, and modifiers
 
@@ -212,8 +584,6 @@ Check out the full [API reference](https://typyx.rccyx.com/) for detailed usage 
 * [`Primitive`](https://typyx.rccyx.com/types/Primitive.html) - Represents all JavaScript primitive types.
 * [`Simplify<T>`](https://typyx.rccyx.com/types/Simplify.html) - Flattens and normalizes a type for better readability.
 * [`UnknownFunction`](https://typyx.rccyx.com/types/UnknownFunction.html) - Represents a function accepting `unknown` arguments and returning `unknown`.
-
-The best way to understand how these types work is to check the [tests directory](/tests/).
 
 ## Changelog
 
